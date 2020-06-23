@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Connector.h"
+#include "Control.h"
 
 int main(int argc, char *argv[])
 {
