@@ -1,8 +1,15 @@
 #include <stdlib.h>
 #include <string.h>
-#include <vector>
+#include <stdio.h>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
 
-namespace Connection{
+#define DEFAULT_PORT 2020
+#define BUFFER_SIZE 256
+#define DEFUALT_TIMEOUT 5
+
+namespace ET_Connection{
 
 enum connection_result{
     connected_successfully,
@@ -14,21 +21,26 @@ class Connector
 {
 public:
 private:
-    std::vector<int> rx_buffer;
-    std::vector<int> tx_buffer;
+    char rx_buffer[BUFFER_SIZE];
+    char tx_buffer[BUFFER_SIZE];
     int port;
+    int own_socket;
+    int client_socket;
+    struct sockaddr_in address;
+    struct sockaddr_in client_address;
+    void error(const char *message);
 public:
     Connector();
 
-    connection_result connect_to_device(struct sockaddr_in address, int timeout_sec);
+    ~Connector();
 
-    void send_data(struct sockaddr_in address, std::vector<int> data);
+    connection_result open_connection(int port_number, int timeout_sec = DEFUALT_TIMEOUT);
 
-    bool is_data_availible_from_device(struct sockaddr_in address);
+    void send_data(char* data);
 
-    std::vector<int> receive_data_from_device(struct sockaddr_in address);
+    bool is_data_availible();
 
-    void terminate_connection_with_device(struct sockaddr_in address);
+    void receive_data(char* data);
 
     void terminate_all_connections();
 };
