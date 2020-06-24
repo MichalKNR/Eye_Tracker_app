@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <iostream>
 
 #define DEFAULT_PORT 2020
 #define BUFFER_SIZE 256

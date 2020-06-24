@@ -23,12 +23,13 @@ connection_result Connector::open_connection(int port_number, int timeout_sec){
     if (this->client_socket < 0){
          error("ERROR on accept"); // TODO make use of other connection results
     } else{
+        std::cout<<"Device successfully connected"<<std::endl;
         return connected_successfully;
     }
 }
 
 void Connector::send_data(frame frame){
-    int size = write(this->client_socket, frame.data, frame.size);
+    int size = write(this->client_socket, frame.data, 255);
     if (size < 0){
         error("ERROR writing to socket");
     }
@@ -40,7 +41,7 @@ bool Connector::is_data_availible(){
 
 int Connector::receive_data(char* data){
     bzero(data,256);
-    int size = read(this->client_socket, data,255);
+    int size = read(this->client_socket, data, 255);
     if (size < 0){
         error("ERROR reading from socket");
     }
