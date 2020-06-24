@@ -17,8 +17,14 @@ enum connection_result{
     timeout
 };
 
-class Connector
+struct frame
 {
+    char data[BUFFER_SIZE];
+    int size;
+};
+
+class Connector{
+
 public:
 private:
     char rx_buffer[BUFFER_SIZE];
@@ -36,11 +42,11 @@ public:
 
     connection_result open_connection(int port_number, int timeout_sec = DEFUALT_TIMEOUT);
 
-    void send_data(char* data);
+    void send_data(frame frame);
 
     bool is_data_availible();
 
-    void receive_data(char* data);
+    int receive_data(char* data);
 
     void terminate_all_connections();
 };

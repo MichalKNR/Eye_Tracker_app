@@ -3,7 +3,7 @@ Server application for eye tracker system for mobile robots control
 
 # Comunication Flow
 
-There are 3 different objects in program: Connection, Control and Robot. Each of them works independently
+There are 3 different objects in program: Connection, Control and Robot. 
 
 ### Connection
 
