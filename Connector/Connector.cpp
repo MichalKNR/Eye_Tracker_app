@@ -29,7 +29,7 @@ connection_result Connector::open_connection(int port_number, int timeout_sec){
 }
 
 void Connector::send_data(frame frame){
-    int size = write(this->client_socket, frame.data, 255);
+    int size = write(this->client_socket, frame.data, frame.size);
     if (size < 0){
         error("ERROR writing to socket");
     }

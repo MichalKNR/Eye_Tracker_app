@@ -16,6 +16,8 @@ int main(int argc, char *argv[])
     std::cout<<"use wsad to control"<<std::endl;
     char buffer[BUFFER_SIZE]; // TODO use Control Module data member
     while(1){
+        //reading should be asynchronous
+        usleep(50000); //sleep for 50ms
         int size = connector->receive_data(buffer);
         printf("received data: %s\n", buffer);
         //TODO do control based on data
