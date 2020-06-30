@@ -85,7 +85,7 @@ void Controler::calculate_movement_control(movement_control* controls, short key
 
 void Controler::send_robot_movement_frame(movement_control controls){
     ET_Connection::frame control_frame;
-    control_frame.data[0] = control_frame_character;
+    control_frame.data[0] = ET_Connection::control_frame_character;
     control_frame.data[1] = 'W'/*controls.left*/;
     control_frame.data[2] = 'W'/*controls.right*/;
     control_frame.size = movement_frame_size;

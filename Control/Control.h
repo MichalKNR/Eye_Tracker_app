@@ -28,7 +28,6 @@ const short movement_right_forward = 9;
 const short movement_left_backward = 6;
 const short movement_right_backward = 10;
 
-const char control_frame_character = '!';
 const int movement_frame_size = 3;
 
 struct movement_control{

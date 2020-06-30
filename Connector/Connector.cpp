@@ -28,6 +28,22 @@ connection_result Connector::open_connection(int port_number, int timeout_sec){
     }
 }
 
+connection_result Connector::connect_to_server(char* host_name, int server_port){
+    server = gethostbyname(host_name);
+    own_socket = socket(AF_INET, SOCK_STREAM, 0);
+    server_address.sin_family = AF_INET;
+    bcopy((char *)server->h_addr, (char *)&server_address.sin_addr.s_addr, server->h_length);
+    server_address.sin_port = htons(server_port);
+    if (connect(own_socket,(struct sockaddr *) &server_address, sizeof(server_address)) < 0){
+        error("ERROR connecting to server");
+    }
+
+}
+
+frame_type Connector::analyze_frame_type(char first_argument){
+
+}
+
 void Connector::send_data(frame frame){
     int size = write(this->client_socket, frame.data, frame.size);
     if (size < 0){
@@ -45,6 +61,7 @@ int Connector::receive_data(char* data){
     if (size < 0){
         error("ERROR reading from socket");
     }
+    printf("received data: %s\n", data);
     return size;
 }
 
