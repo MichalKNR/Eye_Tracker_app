@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Control.h"
 #include "Telemetrics.h"
+#include "Robot.h"
 
 static int data_port = DEFAULT_PORT;
 static bool is_server = true;
@@ -22,15 +23,21 @@ int main(int argc, char *argv[])
     Control::Controler* main_control_unit = new Control::Controler(connector);
     Telemetrics::Telemetry* telemetry = new Telemetrics::Telemetry(connector);
 
-    std::cout<<"use wsad to control"<<std::endl;
+    if(is_server){
+        std::cout<<"use wsad to control"<<std::endl;
+    }
 
     while(1){
         //reading should be asynchronous
         usleep(50000); //sleep for 50ms
         int size = connector->receive_data(buffer);
 
-        //TODO do control based on data
-        main_control_unit->Control();
+        if(is_server){
+            main_control_unit->Control();
+        } else {
+
+        }
+
     }
      return 0;
 }

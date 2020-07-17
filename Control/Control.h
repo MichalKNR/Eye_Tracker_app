@@ -59,6 +59,8 @@ private:
     ET_Connection::Connector* connector;
     Keyboard_State keyboard;
 
+    void async_remote_control(void);
+
     void calculate_movement_control(movement_control* controls, short keys);
     void send_robot_movement_frame(movement_control controls);
 public:

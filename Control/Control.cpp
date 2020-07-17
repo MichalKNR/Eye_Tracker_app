@@ -14,6 +14,10 @@ Controler::~Controler(){
 
 }
 
+void Controler::async_remote_control(void){
+
+}
+
 void Controler::Control(){
     bool forward_key_pressed = keyboard.getKeyState(movement_forward_key);
     bool backward_key_pressed = keyboard.getKeyState(movement_backward_key);
