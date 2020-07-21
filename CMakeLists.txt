@@ -7,5 +7,7 @@ add_executable(${PROJECT_NAME}
     "Connector/Connector.cpp"
     "Control/Control.cpp"  "Control/Robot.cpp" "Control/Keyboard.cpp"
     "Telemetrics/Telemetrics.cpp")
-target_link_libraries( eye_tracker_app pthread )
+target_link_libraries( eye_tracker_app wiringPi wiringPiDev)
+target_link_libraries( eye_tracker_app pthread rt crypt)
+
 #target_link_libraries(${PROJECT_NAME} Connector)

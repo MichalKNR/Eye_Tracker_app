@@ -22,9 +22,12 @@ int main(int argc, char *argv[])
     }
     Control::Controler* main_control_unit = new Control::Controler(connector);
     Telemetrics::Telemetry* telemetry = new Telemetrics::Telemetry(connector);
+    Control::Robot* robot;
 
     if(is_server){
         std::cout<<"use wsad to control"<<std::endl;
+    } else{
+        robot = new Control::Robot();
     }
 
     while(1){
@@ -35,7 +38,7 @@ int main(int argc, char *argv[])
         if(is_server){
             main_control_unit->Control();
         } else {
-
+            robot->Control(buffer);
         }
 
     }
