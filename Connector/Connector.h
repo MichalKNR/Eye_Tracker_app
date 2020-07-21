@@ -4,7 +4,11 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <netdb.h>
 #include <iostream>
+
+#ifndef CONNECTOR_LIB
+#define CONNECTOR_LIB
 
 #define DEFAULT_PORT 2020
 #define BUFFER_SIZE 256
@@ -12,10 +16,18 @@
 
 namespace ET_Connection{
 
+const char control_frame_character = '!';
+const char telemetrics_frame_character = '@';
+
 enum connection_result{
     connected_successfully,
     failed_to_connect,
     timeout
+};
+
+enum frame_type{
+    control,
+    telemetrics,
 };
 
 struct frame
@@ -35,6 +47,8 @@ private:
     int client_socket;
     struct sockaddr_in address;
     struct sockaddr_in client_address;
+    struct hostent *server;
+    struct sockaddr_in server_address;
     void error(const char *message);
 public:
     Connector();
@@ -42,6 +56,10 @@ public:
     ~Connector();
 
     connection_result open_connection(int port_number, int timeout_sec = DEFUALT_TIMEOUT);
+
+    connection_result connect_to_server(char *host_name, int server_port);
+
+    frame_type analyze_frame_type(char first_argument);
 
     void send_data(frame frame);
 
@@ -52,3 +70,5 @@ public:
     void terminate_all_connections();
 };
 }
+
+#endif

@@ -28,7 +28,6 @@ const short movement_right_forward = 9;
 const short movement_left_backward = 6;
 const short movement_right_backward = 10;
 
-const char control_frame_character = '!';
 const int movement_frame_size = 3;
 
 struct movement_control{
@@ -59,6 +58,8 @@ public:
 private:
     ET_Connection::Connector* connector;
     Keyboard_State keyboard;
+
+    void async_remote_control(void);
 
     void calculate_movement_control(movement_control* controls, short keys);
     void send_robot_movement_frame(movement_control controls);
